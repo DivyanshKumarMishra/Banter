@@ -62,11 +62,11 @@ const setupCircuit = async (server) => {
 
   io.on('connection', (socket) => {
     const user_id = socket.handshake.query.user_id
-    const dms = socket.handshake.query.dms.split(',') || [];
+    const dms = socket.handshake.query.dms?.split(',') || [];
 
     if (user_id) {
-      userSocketMap.set(user_id, socket.id)
       // console.log(`User connected: ${user_id} with socket ID: ${socket.id}`)
+      userSocketMap.set(user_id, socket.id)
       // console.log(dms?.length);
       if(dms?.length > 0) {
         dms.forEach(dm => {
@@ -100,7 +100,7 @@ const setupCircuit = async (server) => {
 
     socket.on('pre-disconnect', ({ user_id, dms }) => {
       socket.user_id = user_id;
-      socket.dms = socket.handshake.query.dms.split(',') || [];
+      socket.dms = dms?.split(',') || [];
     });
     
     // on disconnection request

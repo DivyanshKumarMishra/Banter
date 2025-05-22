@@ -3,9 +3,9 @@ const {getUserDataFromToken, getCustomError} = require('../utils/funcs')
 const verifyToken = async (req, res, next) => {
   try {
     const {authToken} = req.cookies
-    if(!authToken) throw res.status(203).json({message: 'Token not found'})
+    if(!authToken) throw ({message: 'Unauthorized', status: 401, cause: 'No auth token found'})
     const user = await getUserDataFromToken(authToken)
-    if(!user.name) throw res.status(401).json({message: 'Unauthorized'})
+    if(!user.name) throw ({message: 'Unauthorized', status: 401})
     req.user = user
     next()
   } catch (error) {

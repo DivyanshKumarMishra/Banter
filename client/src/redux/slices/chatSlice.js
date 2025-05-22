@@ -88,6 +88,9 @@ const chatSlice = createSlice({
       state.dmsLoading = false
       state.dms = action.payload
     })
+    builder.addCase(getDMs.rejected, (state) => {
+      state.dmsLoading = false
+    })
   }
 })
 

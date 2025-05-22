@@ -66,7 +66,7 @@ function SocketProvider({children}) {
       socket.current = setupSocket({user_id: userInfo._id, dms: dms.map(dm => dm._id).join(',')})
 
       socket.current.on('connect', () => {
-        socket.current.emit('online', { user_id: userInfo._id });
+        console.log(`Socket connected with id : ${socket.current.id}`);
       });
 
       const receiveMessage = (message) => {
